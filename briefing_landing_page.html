@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing de Otimização de Landing Page</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f1e35;--blue:#2563eb;--blue-light:#dbeafe;
+  --surface:#f8f9fc;--border:#e2e8f0;
+  --text:#1e293b;--text-muted:#64748b;--white:#ffffff;
+  --success:#059669;--success-light:#d1fae5;--error:#dc2626;
+  --radius:10px;--radius-lg:16px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);min-height:100vh;line-height:1.6}
+.hero{background:var(--navy);padding:52px 24px 52px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 110%,rgba(37,99,235,.35) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#93c5fd;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:99px;margin-bottom:20px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(26px,5vw,46px);color:#fff;line-height:1.15;margin-bottom:14px;position:relative}
+.hero h1 em{font-style:italic;color:#93c5fd}
+.hero p{color:rgba(255,255,255,.6);font-size:15px;max-width:480px;margin:0 auto}
+.progress-bar-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:13px 24px}
+.progress-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.progress-steps{display:flex;gap:6px;flex:1}
+.step-dot{height:4px;flex:1;border-radius:2px;background:var(--border);transition:background .3s}
+.step-dot.active{background:var(--blue)}
+.step-dot.done{background:var(--success)}
+.progress-label{font-size:12px;color:var(--text-muted);white-space:nowrap;font-weight:500}
+.container{max-width:800px;margin:0 auto;padding:24px 20px 60px;position:relative}
+.step-card{display:none;background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;animation:slideIn .25s ease}
+.step-card.visible{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.card-header{padding:24px 28px 0;display:flex;align-items:flex-start;gap:16px}
+.step-icon{width:42px;height:42px;border-radius:var(--radius);background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;font-weight:700}
+.card-header-text h2{font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy);line-height:1.2}
+.card-header-text p{font-size:13px;color:var(--text-muted);margin-top:4px}
+.card-body{padding:24px 28px 28px}
+.field{margin-bottom:20px}
+.field:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px}
+label .req{color:var(--blue);margin-left:3px}
+input[type="text"],input[type="url"],select,textarea{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+textarea{resize:vertical;min-height:90px;line-height:1.55}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.outro-field{display:none;margin-top:10px}
+.outro-field.visible{display:block}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.field-row{grid-template-columns:1fr}}
+.checkbox-group{display:flex;flex-direction:column;gap:8px}
+.checkbox-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:background .15s,border-color .15s;user-select:none}
+.checkbox-item:hover{background:var(--surface);border-color:#c7d2fe}
+.checkbox-item input[type="checkbox"]{width:16px;height:16px;accent-color:var(--blue);flex-shrink:0}
+.checkbox-item span{font-size:13.5px}
+.checkbox-item.checked{background:#eff6ff;border-color:#bfdbfe}
+.nav-buttons{display:flex;gap:12px;margin-top:28px;justify-content:flex-end}
+.btn{padding:11px 24px;border-radius:var(--radius);font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;transition:all .18s;display:inline-flex;align-items:center;gap:8px}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text-muted)}
+.btn-ghost:hover{background:var(--surface);color:var(--text)}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 1px 8px rgba(37,99,235,.25)}
+.btn-primary:hover{background:#1d4ed8}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-warning{background:#fff;color:#b45309;border:1px solid #fcd34d}
+.btn-warning:hover{background:#fef3c7}
+.info-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--radius);padding:14px 16px;font-size:13px;color:#1e40af;margin-bottom:24px;line-height:1.6;display:flex;gap:10px;align-items:flex-start}
+.error-msg{color:var(--error);font-size:12px;margin-top:4px;display:none}
+.field.has-error input,.field.has-error textarea,.field.has-error select{border-color:var(--error)}
+.field.has-error .error-msg{display:block}
+.review-section{margin-bottom:24px}
+.review-section:last-of-type{margin-bottom:0}
+.review-section-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.review-row{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid var(--surface)}
+.review-row:last-child{border-bottom:none}
+.review-label{font-size:13px;color:var(--text-muted);min-width:160px;flex-shrink:0}
+.review-value{font-size:13px;color:var(--text);flex:1;word-break:break-word}
+.review-value.empty{color:#cbd5e1;font-style:italic}
+@media(max-width:500px){.review-row{flex-direction:column;gap:2px}.review-label{min-width:unset}}
+#success-screen{display:none;text-align:center;padding:60px 28px;background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);animation:slideIn .3s ease}
+.success-icon{width:72px;height:72px;border-radius:50%;background:var(--success-light);color:var(--success);font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
+#success-screen h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);margin-bottom:12px}
+#success-screen p{color:var(--text-muted);font-size:14px;max-width:420px;margin:0 auto 8px}
+.success-email{display:inline-block;margin-top:12px;padding:8px 20px;background:var(--success-light);color:var(--success);border-radius:99px;font-size:13px;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Performance Digital</div>
+  <h1>Briefing de Otimização<br>de <em>Landing Page</em></h1>
+  <p>Preencha o formulário abaixo e envie todas as informações para nossa equipe.</p>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-inner">
+    <div class="progress-steps" id="progressDots"></div>
+    <span class="progress-label" id="progressLabel">Etapa 1 de 4</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ETAPA 1 -->
+  <div class="step-card visible" id="step-1">
+    <div class="card-header">
+      <div class="step-icon">1</div>
+      <div class="card-header-text">
+        <h2>Visão Geral do Projeto</h2>
+        <p>Informações básicas sobre a landing page e o objetivo da otimização.</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field" id="f-empresa">
+        <label>Nome da Empresa <span class="req">*</span></label>
+        <input type="text" id="empresa" placeholder="Ex: Bastelli Marketing">
+        <span class="error-msg">Campo obrigatório.</span>
+      </div>
+
+      <div class="field">
+        <label>URL da Landing Page</label>
+        <input type="url" id="url" placeholder="https://seuproduto.com.br/lp">
+      </div>
+      <div class="field">
+        <label>Produto / Serviço Oferecido</label>
+        <input type="text" id="produto" placeholder="Ex: Curso de Tráfego Pago">
+      </div>
+      <div class="field">
+        <label>Objetivo Principal da Página</label>
+        <select id="objetivo" onchange="toggleOutro('objetivo','outro-objetivo')">
+          <option value="">Selecione...</option>
+          <option>Captura de leads</option>
+          <option>Venda direta</option>
+          <option>Agendamento de reunião / demo</option>
+          <option>Download de material</option>
+          <option value="Outro">Outro</option>
+        </select>
+        <div class="outro-field" id="outro-objetivo">
+          <input type="text" id="objetivo_outro" placeholder="Descreva o objetivo...">
+        </div>
+      </div>
+      <div class="field">
+        <label>Contexto e Motivação da Otimização</label>
+        <textarea id="contexto" placeholder="Por que você quer otimizar essa página agora?"></textarea>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-primary" onclick="goTo(2)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ETAPA 2 -->
+  <div class="step-card" id="step-2">
+    <div class="card-header">
+      <div class="step-icon">2</div>
+      <div class="card-header-text">
+        <h2>Diagnóstico Atual</h2>
+        <p>Métricas atuais, fontes de tráfego e principais problemas.</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field-row">
+        <div class="field"><label>Taxa de Conversão Atual (%)</label><input type="text" id="conv_atual" placeholder="Ex: 2.4"></div>
+        <div class="field"><label>Meta de Conversão (%)</label><input type="text" id="conv_meta" placeholder="Ex: 5.0"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Taxa de Rejeição Atual (%)</label><input type="text" id="rejeicao" placeholder="Ex: 72"></div>
+        <div class="field"><label>CPA Atual (R$)</label><input type="text" id="cpa" placeholder="Ex: 85,00"></div>
+      </div>
+      <div class="field">
+        <label>Principais Fontes de Tráfego</label>
+        <div class="checkbox-group" id="fontes">
+          <label class="checkbox-item"><input type="checkbox" value="Google Ads (Search)"><span>Google Ads (Search)</span></label>
+          <label class="checkbox-item"><input type="checkbox" value="Google Ads (Display)"><span>Google Ads (Display)</span></label>
+          <label class="checkbox-item"><input type="checkbox" value="Meta Ads (Facebook / Instagram)"><span>Meta Ads (Facebook / Instagram)</span></label>
+          <label class="checkbox-item"><input type="checkbox" value="Orgânico / SEO"><span>Orgânico / SEO</span></label>
+          <label class="checkbox-item"><input type="checkbox" value="E-mail Marketing"><span>E-mail Marketing</span></label>
+          <label class="checkbox-item"><input type="checkbox" value="TikTok Ads"><span>TikTok Ads</span></label>
+          <label class="checkbox-item" id="fontes-outro-item">
+            <input type="checkbox" value="Outro" onchange="toggleCheckOutro('outro-fontes',this)">
+            <span>Outro</span>
+          </label>
+        </div>
+        <div class="outro-field" id="outro-fontes">
+          <input type="text" id="fontes_outro" placeholder="Qual fonte?">
+        </div>
+      </div>
+      <div class="field">
+        <label>Principais Problemas Identificados</label>
+        <textarea id="problemas" placeholder="Ex: alto abandono do formulário, CTA pouco visível, página lenta no mobile..."></textarea>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="goTo(1)">← Voltar</button>
+        <button class="btn btn-primary" onclick="goTo(3)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ETAPA 3 -->
+  <div class="step-card" id="step-3">
+    <div class="card-header">
+      <div class="step-icon">3</div>
+      <div class="card-header-text">
+        <h2>Público-Alvo e Copy</h2>
+        <p>Dores, objeções, headline e proposta de valor da página.</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label>Principais Dores que o Produto Resolve</label>
+        <textarea id="dores" placeholder="Ex: Não consegue converter o tráfego pago em vendas..."></textarea>
+      </div>
+      <div class="field">
+        <label>Principais Objeções para Não Converter</label>
+        <textarea id="objecoes" placeholder="Ex: Preço alto, falta de prova social, não confia na marca..."></textarea>
+      </div>
+      <div class="field">
+        <label>Headline</label>
+        <input type="text" id="headline" placeholder="Cole aqui o título principal da sua landing page">
+      </div>
+      <div class="field">
+        <label>Texto do CTA (botão)</label>
+        <input type="text" id="cta_atual" placeholder="Ex: Quero meu acesso, Comprar agora...">
+      </div>
+      <div class="field">
+        <label>Proposta de Valor</label>
+        <textarea id="proposta" placeholder="O que a sua página promete ao visitante?"></textarea>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="goTo(2)">← Voltar</button>
+        <button class="btn btn-primary" onclick="goTo(4)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ETAPA 4 -->
+  <div class="step-card" id="step-4">
+    <div class="card-header">
+      <div class="step-icon">4</div>
+      <div class="card-header-text">
+        <h2>Revisão e Envio</h2>
+        <p>Confira suas respostas antes de enviar.</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-box">
+        <span>✅</span>
+        <div>Ao clicar em <strong>Enviar Briefing</strong>, uma tarefa será criada automaticamente no <strong>ClickUp</strong> com todas as informações.</div>
+      </div>
+      <div id="review-content"></div>
+      <div class="field" style="margin-top:24px">
+        <label>Observações Adicionais</label>
+        <textarea id="obs" style="min-height:100px" placeholder="Referências visuais, links, informações extras..."></textarea>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-warning" onclick="goTo(1)">✏️ Corrigir</button>
+        <button class="btn btn-primary" id="send-btn" onclick="sendBriefing()">📨 Enviar Briefing</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCESSO -->
+  <div id="success-screen">
+    <div class="success-icon">✓</div>
+    <h2>Tarefa criada com sucesso!</h2>
+    <p>O briefing foi enviado para o ClickUp e já está disponível para a equipe.</p>
+    <span class="success-email">✅ ClickUp · Otimização de Landing Page</span>
+    <br><br>
+    <button class="btn btn-ghost" onclick="resetForm()" style="margin:0 auto;display:inline-flex">Preencher novo briefing</button>
+  </div>
+
+</div>
+
+<script>
+
+const TOTAL = 4;
+let cur = 1;
+
+function dots() {
+  const w = document.getElementById('progressDots');
+  w.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i < cur ? ' done' : i === cur ? ' active' : '');
+    w.appendChild(d);
+  }
+  document.getElementById('progressLabel').textContent = 'Etapa ' + cur + ' de ' + TOTAL;
+}
+dots();
+
+function goTo(n) {
+  if (n > cur && !validate(cur)) return;
+  document.getElementById('step-' + cur).classList.remove('visible');
+  cur = n;
+  if (cur === 4) buildReview();
+  document.getElementById('step-' + cur).classList.add('visible');
+  dots();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function validate(s) {
+  if (s === 1) return req('empresa');
+  return true;
+}
+
+function req(id) {
+  const el = document.getElementById(id);
+  const f  = document.getElementById('f-' + id);
+  if (!el || !f) return true;
+  if (!el.value.trim()) { f.classList.add('has-error'); return false; }
+  f.classList.remove('has-error'); return true;
+}
+
+function toggleOutro(selectId, outroId) {
+  const sel = document.getElementById(selectId);
+  document.getElementById(outroId).classList.toggle('visible', sel.value === 'Outro');
+}
+
+function toggleCheckOutro(outroId, chk) {
+  document.getElementById(outroId).classList.toggle('visible', chk.checked);
+}
+
+function v(id) {
+  const e = document.getElementById(id);
+  return e && e.value.trim() ? e.value.trim() : '';
+}
+
+function vObj(selectId, outroId) {
+  const sel = document.getElementById(selectId);
+  if (!sel) return '';
+  if (sel.value === 'Outro') return v(outroId) || 'Outro';
+  return sel.value;
+}
+
+function checked(gid, outroId) {
+  const vals = Array.from(document.querySelectorAll('#' + gid + ' input[type="checkbox"]:checked'))
+    .map(e => e.value === 'Outro' ? (v(outroId) || 'Outro') : e.value);
+  return vals.join(', ') || 'Nenhum selecionado';
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+function buildReview() {
+  const sections = [
+    {
+      title: 'Visão Geral',
+      rows: [
+        ['Empresa',           v('empresa')],
+        ['URL',               v('url')],
+        ['Produto/Serviço',   v('produto')],
+        ['Objetivo',          vObj('objetivo','objetivo_outro')],
+        ['Contexto',          v('contexto')],
+      ]
+    },
+    {
+      title: 'Diagnóstico Atual',
+      rows: [
+        ['Conversão atual',   v('conv_atual') ? v('conv_atual')+'%' : ''],
+        ['Meta de conversão', v('conv_meta')  ? v('conv_meta')+'%'  : ''],
+        ['Taxa de rejeição',  v('rejeicao')   ? v('rejeicao')+'%'   : ''],
+        ['CPA atual',         v('cpa')        ? 'R$ '+v('cpa')      : ''],
+        ['Fontes de tráfego', checked('fontes','fontes_outro')],
+        ['Problemas',         v('problemas')],
+      ]
+    },
+    {
+      title: 'Público-Alvo e Copy',
+      rows: [
+        ['Dores',             v('dores')],
+        ['Objeções',          v('objecoes')],
+        ['Headline',          v('headline')],
+        ['CTA',               v('cta_atual')],
+        ['Proposta de valor', v('proposta')],
+      ]
+    }
+  ];
+
+  let html = '';
+  sections.forEach(sec => {
+    html += '<div class="review-section"><div class="review-section-title">' + sec.title + '</div>';
+    sec.rows.forEach(([label, val]) => {
+      const empty = !val || val === 'Nenhum selecionado';
+      html += '<div class="review-row"><span class="review-label">' + label + '</span>';
+      html += '<span class="review-value' + (empty ? ' empty' : '') + '">' + (empty ? 'Não preenchido' : escHtml(val)) + '</span></div>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('review-content').innerHTML = html;
+}
+
+function buildBody() {
+  return [
+    'BRIEFING DE OTIMIZAÇÃO DE LANDING PAGE',
+    '========================================',
+    '',
+    '1. VISÃO GERAL',
+    '- Empresa: '         + (v('empresa')||'—'),
+    '- URL: '             + (v('url')||'—'),
+    '- Produto/Serviço: ' + (v('produto')||'—'),
+    '- Objetivo: '        + (vObj('objetivo','objetivo_outro')||'—'),
+    '- Contexto: '        + (v('contexto')||'—'),
+    '',
+    '2. DIAGNÓSTICO ATUAL',
+    '- Conversão atual: ' + (v('conv_atual') ? v('conv_atual')+'%' : '—'),
+    '- Meta de conversão: '+(v('conv_meta')  ? v('conv_meta')+'%'  : '—'),
+    '- Taxa de rejeição: ' +(v('rejeicao')   ? v('rejeicao')+'%'   : '—'),
+    '- CPA atual: '       + (v('cpa')        ? 'R$ '+v('cpa')      : '—'),
+    '- Fontes de tráfego: '+checked('fontes','fontes_outro'),
+    '- Problemas: '       + (v('problemas')||'—'),
+    '',
+    '3. PÚBLICO-ALVO E COPY',
+    '- Dores: '           + (v('dores')||'—'),
+    '- Objeções: '        + (v('objecoes')||'—'),
+    '- Headline: '        + (v('headline')||'—'),
+    '- CTA: '             + (v('cta_atual')||'—'),
+    '- Proposta de valor: '+(v('proposta')||'—'),
+    '',
+    '4. OBSERVAÇÕES',
+    (v('obs')||'—'),
+  ].join('\n');
+}
+
+function showSuccess() {
+  document.getElementById('step-4').classList.remove('visible');
+  document.getElementById('success-screen').style.display = 'block';
+  document.querySelector('.progress-bar-wrap').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildDescription() {
+  return [
+    '📋 BRIEFING DE OTIMIZAÇÃO DE LANDING PAGE',
+    '',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '1. VISÃO GERAL',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '👤 Responsável: André',
+    '🏢 Empresa: '         + (v('empresa')||'—'),
+    '🔗 URL: '             + (v('url')||'—'),
+    '📦 Produto/Serviço: ' + (v('produto')||'—'),
+    '🎯 Objetivo: '        + (vObj('objetivo','objetivo_outro')||'—'),
+    '💬 Contexto: '        + (v('contexto')||'—'),
+    '',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '2. DIAGNÓSTICO ATUAL',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '📈 Conversão atual: ' + (v('conv_atual') ? v('conv_atual')+'%' : '—'),
+    '🎯 Meta de conversão: '+(v('conv_meta')  ? v('conv_meta')+'%'  : '—'),
+    '📉 Taxa de rejeição: ' +(v('rejeicao')   ? v('rejeicao')+'%'   : '—'),
+    '💰 CPA atual: '       + (v('cpa')        ? 'R$ '+v('cpa')      : '—'),
+    '📣 Fontes de tráfego: '+checked('fontes','fontes_outro'),
+    '⚠️ Problemas: '       + (v('problemas')||'—'),
+    '',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '3. PÚBLICO-ALVO E COPY',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '😣 Dores: '           + (v('dores')||'—'),
+    '🚧 Objeções: '        + (v('objecoes')||'—'),
+    '✍️ Headline: '        + (v('headline')||'—'),
+    '🔘 CTA: '             + (v('cta_atual')||'—'),
+    '💡 Proposta de valor: '+(v('proposta')||'—'),
+    '',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '4. OBSERVAÇÕES',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    (v('obs')||'—'),
+  ].join('\n');
+}
+
+function sendBriefing() {
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+  btn.textContent = 'Criando tarefa...';
+
+  const taskName = (v('empresa') || 'Sem nome') + ' | Otimização de Landing Page';
+
+  fetch('https://api.clickup.com/api/v2/list/168911847/task', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'pk_82190021_FZZNRDO4APOZJXCDQ4MODUHF8S62PPP1'
+    },
+    body: JSON.stringify({
+      name: taskName,
+      description: buildDescription(),
+      assignees: [82190021]
+    })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.id) {
+      showSuccess();
+    } else {
+      throw new Error(JSON.stringify(data));
+    }
+  })
+  .catch(function(err) {
+    alert('Erro ao criar tarefa no ClickUp. Verifique sua conexão e tente novamente.\n\nDetalhe: ' + err);
+    btn.disabled = false;
+    btn.innerHTML = '📨 Enviar Briefing';
+  });
+}
+
+function resetForm() {
+  document.querySelectorAll('input[type="text"],input[type="url"],textarea,select').forEach(function(el){ el.value=''; });
+  document.querySelectorAll('input[type="checkbox"]').forEach(function(el){ el.checked=false; });
+  document.querySelectorAll('.checkbox-item').forEach(function(i){ i.classList.remove('checked'); });
+  document.querySelectorAll('.outro-field').forEach(function(f){ f.classList.remove('visible'); });
+  document.getElementById('success-screen').style.display = 'none';
+  document.querySelector('.progress-bar-wrap').style.display = 'block';
+  cur = 1;
+  document.querySelectorAll('.step-card').forEach(function(c){ c.classList.remove('visible'); });
+  document.getElementById('step-1').classList.add('visible');
+  dots();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(function(chk) {
+  chk.addEventListener('change', function(){ chk.closest('.checkbox-item').classList.toggle('checked', chk.checked); });
+});
+document.getElementById('empresa').addEventListener('input', function(){ document.getElementById('f-empresa').classList.remove('has-error'); });
+</script>
+</body>
+</html>
