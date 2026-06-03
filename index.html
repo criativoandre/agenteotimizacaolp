@@ -380,8 +380,8 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
   <div id="success-screen">
     <div class="success-icon">✓</div>
-    <h2>Tarefa criada com sucesso!</h2>
-    <p>A tarefa principal e as 4 subtarefas foram criadas no ClickUp e já estão disponíveis para a equipe.</p>
+    <h2>A tarefa foi criada no ClickUp com sucesso!</h2>
+    <p>Já está disponível para a equipe com as subtarefas organizadas por etapa.</p>
     <span class="success-tag">✅ ClickUp · Otimização de Landing Page</span>
     <br><br>
     <button class="btn btn-ghost" onclick="resetForm()" style="margin:0 auto;display:inline-flex">Preencher novo briefing</button>
@@ -629,11 +629,7 @@ function buildSubtasks(){
       '💡 Proposta de valor: '+(v('proposta')||'—'),
       '➕ Outro elemento: '+(vOutroElem()||'—'),
     ].join('\n')},
-    {name:'4. Observações Finais',description:[
-      '📅 Data Inicial: '+(vDataInicial()||'—'),
-      '🚩 Prioridade: '+(document.getElementById('task_priority').value?['','🔴 Urgente','🟠 Alta','🟡 Média','🔵 Normal'][parseInt(document.getElementById('task_priority').value)]:'—'),
-      '📝 Observações: '+(v('obs')||'—'),
-    ].join('\n')},
+    {name:'4. Observações Finais',description:(v('obs')||'—')},
   ];
 }
 
