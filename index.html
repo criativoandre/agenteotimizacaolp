@@ -8,8 +8,8 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0f1e35;--blue:#2563eb;--blue-light:#dbeafe;
-  --surface:#f8f9fc;--border:#e2e8f0;
+  --navy:#0d2b20;--blue:#059669;--blue-light:#d1fae5;
+  --surface:#f0fdf8;--border:#d1fae5;
   --text:#1e293b;--text-muted:#64748b;--white:#ffffff;
   --success:#059669;--success-light:#d1fae5;--error:#dc2626;
   --radius:10px;--radius-lg:16px;
@@ -17,10 +17,10 @@
 }
 body{font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);min-height:100vh;line-height:1.6}
 .hero{background:var(--navy);padding:52px 24px 52px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 110%,rgba(37,99,235,.35) 0%,transparent 70%);pointer-events:none}
-.hero-badge{display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#93c5fd;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:99px;margin-bottom:20px}
-.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(26px,5vw,46px);color:#fff;line-height:1.15;margin-bottom:14px;position:relative}
-.hero h1 em{font-style:italic;color:#93c5fd}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 110%,rgba(5,150,105,.4) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#6ee7b7;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:99px;margin-bottom:20px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(26px,5vw,46px);color:#fff;line-height:1.15;margin-bottom:14px}
+.hero h1 em{font-style:italic;color:#6ee7b7}
 .hero p{color:rgba(255,255,255,.6);font-size:15px;max-width:480px;margin:0 auto}
 .progress-bar-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:13px 24px}
 .progress-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;gap:16px}
@@ -29,7 +29,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text
 .step-dot.active{background:var(--blue)}
 .step-dot.done{background:var(--success)}
 .progress-label{font-size:12px;color:var(--text-muted);white-space:nowrap;font-weight:500}
-.container{max-width:800px;margin:0 auto;padding:24px 20px 60px;position:relative}
+.container{max-width:800px;margin:0 auto;padding:24px 20px 60px}
 .step-card{display:none;background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;animation:slideIn .25s ease}
 .step-card.visible{display:block}
 @keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -42,31 +42,61 @@ body{font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text
 .field:last-child{margin-bottom:0}
 label{display:block;font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px}
 label .req{color:var(--blue);margin-left:3px}
-input[type="text"],input[type="url"],select,textarea{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
-input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+input[type="text"],input[type="url"],input[type="email"],select,textarea{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(5,150,105,.12)}
 textarea{resize:vertical;min-height:90px;line-height:1.55}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+/* chain system */
 .outro-field{display:none;margin-top:10px}
 .outro-field.visible{display:block}
+.input-x-wrap{position:relative;display:flex;align-items:center}
+.input-x-wrap input{padding-right:36px}
+.input-x-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;background:#e2e8f0;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748b;transition:background .15s,color .15s;flex-shrink:0;line-height:1;padding:0}
+.input-x-btn:hover{background:#fecaca;color:var(--error)}
+.fu-block{margin-top:10px;padding:12px 14px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);display:none}
+.fu-block.on{display:block}
+.fu-label{font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px}
+.radio-group{display:flex;gap:10px}
+.radio-btn{display:flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;font-size:13px;user-select:none;transition:background .15s,border-color .15s}
+.radio-btn:hover{background:#ecfdf5;border-color:#a7f3d0}
+.radio-btn.sel{background:#ecfdf5;border-color:var(--blue);color:var(--blue);font-weight:600}
+.chain-row{margin-top:10px}
+/* chips */
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.chip{padding:8px 18px;border:1px solid var(--border);border-radius:99px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;background:var(--white);color:var(--text-muted);transition:all .15s;user-select:none;font-weight:500}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.sel{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+.chip.sel-outro{background:#ecfdf5;border-color:var(--blue);color:var(--blue);font-weight:600}
+/* priority */
+.priority-group{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.priority-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;user-select:none;transition:background .15s,border-color .15s;font-size:13.5px;color:var(--text)}
+.priority-item:hover{background:var(--surface);border-color:#a7f3d0}
+.priority-item input[type="radio"]{display:none}
+.priority-flag{font-size:18px;line-height:1;flex-shrink:0}
+.priority-label{font-size:13.5px;font-weight:500}
+.priority-item.sel{background:#ecfdf5;border-color:var(--blue)}
+/* hero sub-panel inside checkbox list */
+.hero-sub{display:none;margin:4px 0 8px 0;padding:14px 16px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:var(--radius)}
+.hero-sub.on{display:block}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:560px){.field-row{grid-template-columns:1fr}}
 .checkbox-group{display:flex;flex-direction:column;gap:8px}
 .checkbox-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:background .15s,border-color .15s;user-select:none}
-.checkbox-item:hover{background:var(--surface);border-color:#c7d2fe}
+.checkbox-item:hover{background:var(--surface);border-color:#a7f3d0}
 .checkbox-item input[type="checkbox"]{width:16px;height:16px;accent-color:var(--blue);flex-shrink:0}
 .checkbox-item span{font-size:13.5px}
-.checkbox-item.checked{background:#eff6ff;border-color:#bfdbfe}
+.checkbox-item.checked{background:#ecfdf5;border-color:#6ee7b7}
 .nav-buttons{display:flex;gap:12px;margin-top:28px;justify-content:flex-end}
 .btn{padding:11px 24px;border-radius:var(--radius);font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;transition:all .18s;display:inline-flex;align-items:center;gap:8px}
 .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text-muted)}
 .btn-ghost:hover{background:var(--surface);color:var(--text)}
-.btn-primary{background:var(--blue);color:#fff;box-shadow:0 1px 8px rgba(37,99,235,.25)}
-.btn-primary:hover{background:#1d4ed8}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 1px 8px rgba(5,150,105,.25)}
+.btn-primary:hover{background:#047857}
 .btn-primary:active{transform:scale(.98)}
 .btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .btn-warning{background:#fff;color:#b45309;border:1px solid #fcd34d}
 .btn-warning:hover{background:#fef3c7}
-.info-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--radius);padding:14px 16px;font-size:13px;color:#1e40af;margin-bottom:24px;line-height:1.6;display:flex;gap:10px;align-items:flex-start}
+.info-box{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:var(--radius);padding:14px 16px;font-size:13px;color:#065f46;margin-bottom:24px;line-height:1.6;display:flex;gap:10px;align-items:flex-start}
 .error-msg{color:var(--error);font-size:12px;margin-top:4px;display:none}
 .field.has-error input,.field.has-error textarea,.field.has-error select{border-color:var(--error)}
 .field.has-error .error-msg{display:block}
@@ -83,7 +113,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .success-icon{width:72px;height:72px;border-radius:50%;background:var(--success-light);color:var(--success);font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
 #success-screen h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);margin-bottom:12px}
 #success-screen p{color:var(--text-muted);font-size:14px;max-width:420px;margin:0 auto 8px}
-.success-email{display:inline-block;margin-top:12px;padding:8px 20px;background:var(--success-light);color:var(--success);border-radius:99px;font-size:13px;font-weight:600}
+.success-tag{display:inline-block;margin-top:12px;padding:8px 20px;background:var(--success-light);color:var(--success);border-radius:99px;font-size:13px;font-weight:600}
 </style>
 </head>
 <body>
@@ -97,13 +127,13 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 <div class="progress-bar-wrap">
   <div class="progress-inner">
     <div class="progress-steps" id="progressDots"></div>
-    <span class="progress-label" id="progressLabel">Etapa 1 de 4</span>
+    <span class="progress-label" id="progressLabel">Etapa 1 de 5</span>
   </div>
 </div>
 
 <div class="container">
 
-  <!-- ETAPA 1 -->
+  <!-- ETAPA 1: Visão Geral -->
   <div class="step-card visible" id="step-1">
     <div class="card-header">
       <div class="step-icon">1</div>
@@ -118,7 +148,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         <input type="text" id="empresa" placeholder="Ex: Bastelli Marketing">
         <span class="error-msg">Campo obrigatório.</span>
       </div>
-
       <div class="field">
         <label>URL da Landing Page</label>
         <input type="url" id="url" placeholder="https://seuproduto.com.br/lp">
@@ -129,16 +158,19 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
       <div class="field">
         <label>Objetivo Principal da Página</label>
-        <select id="objetivo" onchange="toggleOutro('objetivo','outro-objetivo')">
-          <option value="">Selecione...</option>
-          <option>Captura de leads</option>
-          <option>Venda direta</option>
-          <option>Agendamento de reunião / demo</option>
-          <option>Download de material</option>
-          <option value="Outro">Outro</option>
-        </select>
-        <div class="outro-field" id="outro-objetivo">
-          <input type="text" id="objetivo_outro" placeholder="Descreva o objetivo...">
+        <div class="chip-group" id="chips-objetivo">
+          <div class="chip" onclick="pickChip('chips-objetivo','Captura de leads',null)">Captura de leads</div>
+          <div class="chip" onclick="pickChip('chips-objetivo','Venda direta',null)">Venda direta</div>
+          <div class="chip" onclick="pickChip('chips-objetivo','Agendamento / demo',null)">Agendamento / demo</div>
+          <div class="chip" onclick="pickChip('chips-objetivo','Download de material',null)">Download de material</div>
+          <div class="chip" onclick="pickChip('chips-objetivo','Outro','of-objetivo')" data-of="of-objetivo">Outro</div>
+        </div>
+        <input type="hidden" id="objetivo" value="">
+        <div class="outro-field" id="of-objetivo">
+          <div class="input-x-wrap">
+            <input type="text" id="objetivo_outro" placeholder="Descreva o objetivo..." oninput="onOutroType(this,'of-objetivo')">
+            <button class="input-x-btn" type="button" onclick="clearChipOutro('chips-objetivo','of-objetivo')" title="Remover">✕</button>
+          </div>
         </div>
       </div>
       <div class="field">
@@ -151,24 +183,16 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     </div>
   </div>
 
-  <!-- ETAPA 2 -->
+  <!-- ETAPA 2: Diagnóstico -->
   <div class="step-card" id="step-2">
     <div class="card-header">
       <div class="step-icon">2</div>
       <div class="card-header-text">
         <h2>Diagnóstico Atual</h2>
-        <p>Métricas atuais, fontes de tráfego e principais problemas.</p>
+        <p>Fontes de tráfego e principais problemas identificados.</p>
       </div>
     </div>
     <div class="card-body">
-      <div class="field-row">
-        <div class="field"><label>Taxa de Conversão Atual (%)</label><input type="text" id="conv_atual" placeholder="Ex: 2.4"></div>
-        <div class="field"><label>Meta de Conversão (%)</label><input type="text" id="conv_meta" placeholder="Ex: 5.0"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label>Taxa de Rejeição Atual (%)</label><input type="text" id="rejeicao" placeholder="Ex: 72"></div>
-        <div class="field"><label>CPA Atual (R$)</label><input type="text" id="cpa" placeholder="Ex: 85,00"></div>
-      </div>
       <div class="field">
         <label>Principais Fontes de Tráfego</label>
         <div class="checkbox-group" id="fontes">
@@ -178,13 +202,13 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <label class="checkbox-item"><input type="checkbox" value="Orgânico / SEO"><span>Orgânico / SEO</span></label>
           <label class="checkbox-item"><input type="checkbox" value="E-mail Marketing"><span>E-mail Marketing</span></label>
           <label class="checkbox-item"><input type="checkbox" value="TikTok Ads"><span>TikTok Ads</span></label>
-          <label class="checkbox-item" id="fontes-outro-item">
-            <input type="checkbox" value="Outro" onchange="toggleCheckOutro('outro-fontes',this)">
-            <span>Outro</span>
-          </label>
+          <label class="checkbox-item"><input type="checkbox" value="Outro" onchange="onCheckOutro('of-fontes',this)"><span>Outro</span></label>
         </div>
-        <div class="outro-field" id="outro-fontes">
-          <input type="text" id="fontes_outro" placeholder="Qual fonte?">
+        <div class="outro-field" id="of-fontes">
+          <div class="input-x-wrap">
+            <input type="text" placeholder="Qual fonte?" oninput="onOutroType(this,'of-fontes')">
+            <button class="input-x-btn" type="button" onclick="clearOutroBox('of-fontes','fontes')" title="Remover">✕</button>
+          </div>
         </div>
       </div>
       <div class="field">
@@ -198,13 +222,13 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     </div>
   </div>
 
-  <!-- ETAPA 3 -->
+  <!-- ETAPA 3: Público-Alvo e Copy -->
   <div class="step-card" id="step-3">
     <div class="card-header">
       <div class="step-icon">3</div>
       <div class="card-header-text">
         <h2>Público-Alvo e Copy</h2>
-        <p>Dores, objeções, headline e proposta de valor da página.</p>
+        <p>Dores, objeções e elementos de copy da página atual.</p>
       </div>
     </div>
     <div class="card-body">
@@ -216,9 +240,40 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         <label>Principais Objeções para Não Converter</label>
         <textarea id="objecoes" placeholder="Ex: Preço alto, falta de prova social, não confia na marca..."></textarea>
       </div>
+
+      <!-- Vídeo (VSL) -->
+      <div class="field">
+        <label>Vídeo (VSL)</label>
+        <div class="chip-group" id="chips-vsl">
+          <div class="chip" onclick="pickChip('chips-vsl','Sim','of-vsl')" data-of="of-vsl">Sim</div>
+          <div class="chip" onclick="pickChip('chips-vsl','Não',null)">Não</div>
+        </div>
+        <input type="hidden" id="vsl" value="">
+        <div class="outro-field" id="of-vsl">
+          <input type="url" id="vsl_url" placeholder="Cole o link do vídeo...">
+        </div>
+      </div>
+
+      <!-- Imagem -->
+      <div class="field">
+        <label>Imagem</label>
+        <div class="chip-group" id="chips-imagem">
+          <div class="chip" onclick="pickChip('chips-imagem','Sim','of-imagem')" data-of="of-imagem">Sim</div>
+          <div class="chip" onclick="pickChip('chips-imagem','Não',null)">Não</div>
+        </div>
+        <input type="hidden" id="imagem" value="">
+        <div class="outro-field" id="of-imagem">
+          <textarea id="imagem_links" placeholder="Cole os links das imagens..." style="min-height:70px"></textarea>
+        </div>
+      </div>
+
       <div class="field">
         <label>Headline</label>
         <input type="text" id="headline" placeholder="Cole aqui o título principal da sua landing page">
+      </div>
+      <div class="field">
+        <label>Subheadline</label>
+        <input type="text" id="subheadline" placeholder="Cole aqui o subtítulo da sua landing page">
       </div>
       <div class="field">
         <label>Texto do CTA (botão)</label>
@@ -228,6 +283,23 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         <label>Proposta de Valor</label>
         <textarea id="proposta" placeholder="O que a sua página promete ao visitante?"></textarea>
       </div>
+
+      <!-- Outro elemento -->
+      <div class="field">
+        <label>Outro Elemento</label>
+        <div class="chip-group" id="chips-outro-elem">
+          <div class="chip" onclick="pickChip('chips-outro-elem','Sim','of-outro-elem')" data-of="of-outro-elem">Sim</div>
+          <div class="chip" onclick="pickChip('chips-outro-elem','Não',null)">Não</div>
+        </div>
+        <input type="hidden" id="outro_elem" value="">
+        <div class="outro-field" id="of-outro-elem">
+          <div class="input-x-wrap">
+            <input type="text" id="outro_elem_val" placeholder="Descreva o elemento...">
+            <button class="input-x-btn" type="button" onclick="clearChipSim('chips-outro-elem','of-outro-elem')" title="Remover">✕</button>
+          </div>
+        </div>
+      </div>
+
       <div class="nav-buttons">
         <button class="btn btn-ghost" onclick="goTo(2)">← Voltar</button>
         <button class="btn btn-primary" onclick="goTo(4)">Continuar →</button>
@@ -235,38 +307,82 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     </div>
   </div>
 
-  <!-- ETAPA 4 -->
+  <!-- ETAPA 4: Observações Finais -->
   <div class="step-card" id="step-4">
     <div class="card-header">
       <div class="step-icon">4</div>
       <div class="card-header-text">
-        <h2>Revisão e Envio</h2>
-        <p>Confira suas respostas antes de enviar.</p>
+        <h2>Observações Finais</h2>
+        <p>Algum detalhe extra importante para a equipe?</p>
       </div>
     </div>
     <div class="card-body">
-      <div class="info-box">
-        <span>✅</span>
-        <div>Ao clicar em <strong>Enviar Briefing</strong>, uma tarefa será criada automaticamente no <strong>ClickUp</strong> com todas as informações.</div>
+      <div class="field-row" style="margin-bottom:20px">
+        <div class="field" style="margin-bottom:0">
+          <label>Data Inicial</label>
+          <input type="date" id="due_date">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>Prioridade</label>
+          <div class="priority-group" id="priority-group">
+            <label class="priority-item" onclick="pickPriority(this,'4')">
+              <input type="radio" name="priority" value="4">
+              <span class="priority-flag" style="color:#3b82f6">⚑</span>
+              <span class="priority-label">Normal</span>
+            </label>
+            <label class="priority-item" onclick="pickPriority(this,'3')">
+              <input type="radio" name="priority" value="3">
+              <span class="priority-flag" style="color:#eab308">⚑</span>
+              <span class="priority-label">Média</span>
+            </label>
+            <label class="priority-item" onclick="pickPriority(this,'2')">
+              <input type="radio" name="priority" value="2">
+              <span class="priority-flag" style="color:#f97316">⚑</span>
+              <span class="priority-label">Alta</span>
+            </label>
+            <label class="priority-item" onclick="pickPriority(this,'1')">
+              <input type="radio" name="priority" value="1">
+              <span class="priority-flag" style="color:#ef4444">⚑</span>
+              <span class="priority-label">Urgente</span>
+            </label>
+          </div>
+          <input type="hidden" id="task_priority" value="">
+        </div>
       </div>
-      <div id="review-content"></div>
-      <div class="field" style="margin-top:24px">
-        <label>Observações Adicionais</label>
-        <textarea id="obs" style="min-height:100px" placeholder="Referências visuais, links, informações extras..."></textarea>
+      <div class="field">
+        <label>Observações</label>
+        <textarea id="obs" style="min-height:120px" placeholder="Referências visuais, links, informações extras..."></textarea>
       </div>
       <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="goTo(3)">← Voltar</button>
+        <button class="btn btn-primary" onclick="goTo(5)">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ETAPA 5: Revisão -->
+  <div class="step-card" id="step-5">
+    <div class="card-header">
+      <div class="step-icon">5</div>
+      <div class="card-header-text">
+        <h2>Revisão</h2>
+        <p>Confira suas respostas. Corrija se necessário ou envie o briefing.</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="review-content"></div>
+      <div class="nav-buttons" style="margin-top:24px">
         <button class="btn btn-warning" onclick="goTo(1)">✏️ Corrigir</button>
         <button class="btn btn-primary" id="send-btn" onclick="sendBriefing()">📨 Enviar Briefing</button>
       </div>
     </div>
   </div>
 
-  <!-- SUCESSO -->
   <div id="success-screen">
     <div class="success-icon">✓</div>
     <h2>Tarefa criada com sucesso!</h2>
-    <p>O briefing foi enviado para o ClickUp e já está disponível para a equipe.</p>
-    <span class="success-email">✅ ClickUp · Otimização de Landing Page</span>
+    <p>A tarefa principal e as 4 subtarefas foram criadas no ClickUp e já estão disponíveis para a equipe.</p>
+    <span class="success-tag">✅ ClickUp · Otimização de Landing Page</span>
     <br><br>
     <button class="btn btn-ghost" onclick="resetForm()" style="margin:0 auto;display:inline-flex">Preencher novo briefing</button>
   </div>
@@ -274,255 +390,316 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <script>
+var TOTAL = 5, cur = 1;
+var chains = {};
 
-const TOTAL = 4;
-let cur = 1;
-
+/* ---- progress ---- */
 function dots() {
-  const w = document.getElementById('progressDots');
-  w.innerHTML = '';
-  for (let i = 1; i <= TOTAL; i++) {
-    const d = document.createElement('div');
-    d.className = 'step-dot' + (i < cur ? ' done' : i === cur ? ' active' : '');
-    w.appendChild(d);
-  }
-  document.getElementById('progressLabel').textContent = 'Etapa ' + cur + ' de ' + TOTAL;
+  var w = document.getElementById('progressDots'); w.innerHTML = '';
+  for(var i=1;i<=TOTAL;i++){var d=document.createElement('div');d.className='step-dot'+(i<cur?' done':i===cur?' active':'');w.appendChild(d);}
+  document.getElementById('progressLabel').textContent = 'Etapa '+cur+' de '+TOTAL;
 }
 dots();
 
 function goTo(n) {
-  if (n > cur && !validate(cur)) return;
-  document.getElementById('step-' + cur).classList.remove('visible');
-  cur = n;
-  if (cur === 4) buildReview();
-  document.getElementById('step-' + cur).classList.add('visible');
-  dots();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if(n>cur&&!validate(cur))return;
+  document.getElementById('step-'+cur).classList.remove('visible');
+  cur=n;
+  if(cur===5) buildReview();
+  if(cur===4){var dd=document.getElementById('due_date');if(dd&&!dd.value){var t=new Date();dd.value=t.toISOString().split('T')[0];}}
+  document.getElementById('step-'+cur).classList.add('visible');
+  dots(); window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function validate(s) {
-  if (s === 1) return req('empresa');
-  return true;
+function validate(s){if(s===1)return req('empresa');return true;}
+function req(id){var el=document.getElementById(id),f=document.getElementById('f-'+id);if(!el||!f)return true;if(!el.value.trim()){f.classList.add('has-error');return false;}f.classList.remove('has-error');return true;}
+
+/* ---- chip single-select ---- */
+function pickChip(groupId, val, showOfId) {
+  document.querySelectorAll('#'+groupId+' .chip').forEach(function(c){c.classList.remove('sel','sel-outro');});
+  var chips = Array.from(document.querySelectorAll('#'+groupId+' .chip'));
+  var clicked = chips.find(function(c){return c.textContent.trim()===val;});
+  if(clicked) clicked.classList.add(val==='Outro'?'sel-outro':'sel');
+  var grpEl=document.getElementById(groupId);
+  if(grpEl){var hidden=grpEl.parentNode?grpEl.parentNode.querySelector('input[type="hidden"]'):null;if(hidden)hidden.value=val;}
+  // hide Outro of if switching away
+  var outrChip=chips.find(function(c){return c.textContent.trim()==='Outro';});
+  if(outrChip&&val!=='Outro'){var outrOfId=outrChip.getAttribute('data-of');if(outrOfId){var box=document.getElementById(outrOfId);if(box){box.classList.remove('visible');resetOutroField(box);}}}
+  // hide Sim of if switching away
+  var simChip=chips.find(function(c){return c.textContent.trim()==='Sim';});
+  if(simChip&&val!=='Sim'){var simOfId=simChip.getAttribute('data-of');if(simOfId){var sbox=document.getElementById(simOfId);if(sbox){sbox.classList.remove('visible');var si=sbox.querySelector('input,textarea');if(si)si.value='';}}}
+  if(showOfId) document.getElementById(showOfId).classList.add('visible');
 }
 
-function req(id) {
-  const el = document.getElementById(id);
-  const f  = document.getElementById('f-' + id);
-  if (!el || !f) return true;
-  if (!el.value.trim()) { f.classList.add('has-error'); return false; }
-  f.classList.remove('has-error'); return true;
+function clearChipOutro(groupId,ofId){
+  document.querySelectorAll('#'+groupId+' .chip').forEach(function(c){c.classList.remove('sel','sel-outro');});
+  var grpEl=document.getElementById(groupId);if(grpEl){var h=grpEl.parentNode?grpEl.parentNode.querySelector('input[type="hidden"]'):null;if(h)h.value='';}
+  var box=document.getElementById(ofId);if(box){box.classList.remove('visible');resetOutroField(box);}
+}
+function clearChipSim(groupId,ofId){
+  document.querySelectorAll('#'+groupId+' .chip').forEach(function(c){c.classList.remove('sel','sel-outro');});
+  var grpEl=document.getElementById(groupId);if(grpEl){var h=grpEl.parentNode?grpEl.parentNode.querySelector('input[type="hidden"]'):null;if(h)h.value='';}
+  var box=document.getElementById(ofId);if(box){box.classList.remove('visible');var i=box.querySelector('input,textarea');if(i)i.value='';}
 }
 
-function toggleOutro(selectId, outroId) {
-  const sel = document.getElementById(selectId);
-  document.getElementById(outroId).classList.toggle('visible', sel.value === 'Outro');
+/* ---- checkbox Outro with infinite chain ---- */
+function onCheckOutro(ofId,chk){
+  var box=document.getElementById(ofId);
+  box.classList.toggle('visible',chk.checked);
+  if(!chk.checked){resetOutroField(box);}
+}
+function clearOutroBox(ofId,groupId){
+  var chk=document.querySelector('#'+groupId+' input[value="Outro"]');
+  if(chk){chk.checked=false;chk.closest('.checkbox-item').classList.remove('checked');}
+  var box=document.getElementById(ofId);box.classList.remove('visible');resetOutroField(box);
+}
+function resetOutroField(box){
+  var firstInp=box.querySelector('.input-x-wrap input');if(firstInp)firstInp.value='';
+  box.querySelectorAll('.chain-row').forEach(function(r){r.remove();});
+  box.querySelectorAll('.fu-block').forEach(function(b){b.classList.remove('on');b.querySelectorAll('.radio-btn').forEach(function(rb){rb.classList.remove('sel');});});
 }
 
-function toggleCheckOutro(outroId, chk) {
-  document.getElementById(outroId).classList.toggle('visible', chk.checked);
+function onOutroType(inputEl,ofId){
+  var val=inputEl.value.trim();
+  var row=inputEl.closest('.input-x-wrap, .chain-row');
+  var fuBlock=row?row.nextElementSibling:null;
+  if(val.length>0){
+    if(!fuBlock||!fuBlock.classList.contains('fu-block')){fuBlock=makeFuBlock(ofId);if(row)row.parentNode.insertBefore(fuBlock,row.nextSibling);}
+    fuBlock.classList.add('on');
+  } else {
+    if(fuBlock&&fuBlock.classList.contains('fu-block')){removeFrom(ofId,fuBlock);}
+  }
 }
 
-function v(id) {
-  const e = document.getElementById(id);
-  return e && e.value.trim() ? e.value.trim() : '';
+function fuDynChoose(fuBlock,ofId,choice,btnEl){
+  fuBlock.querySelectorAll('.radio-btn').forEach(function(b){b.classList.remove('sel');});
+  btnEl.classList.add('sel');
+  if(choice==='sim'){
+    var row=makeChainRow(ofId);
+    fuBlock.parentNode.insertBefore(row,fuBlock.nextSibling);
+    fuBlock.classList.remove('on');
+  } else {
+    removeFrom(ofId,fuBlock);
+    fuBlock.classList.remove('on');
+    fuBlock.querySelectorAll('.radio-btn').forEach(function(b){b.classList.remove('sel');});
+  }
 }
 
-function vObj(selectId, outroId) {
-  const sel = document.getElementById(selectId);
-  if (!sel) return '';
-  if (sel.value === 'Outro') return v(outroId) || 'Outro';
-  return sel.value;
-}
-
-function checked(gid, outroId) {
-  const vals = Array.from(document.querySelectorAll('#' + gid + ' input[type="checkbox"]:checked'))
-    .map(e => e.value === 'Outro' ? (v(outroId) || 'Outro') : e.value);
-  return vals.join(', ') || 'Nenhum selecionado';
-}
-
-function escHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-}
-
-function buildReview() {
-  const sections = [
-    {
-      title: 'Visão Geral',
-      rows: [
-        ['Empresa',           v('empresa')],
-        ['URL',               v('url')],
-        ['Produto/Serviço',   v('produto')],
-        ['Objetivo',          vObj('objetivo','objetivo_outro')],
-        ['Contexto',          v('contexto')],
-      ]
-    },
-    {
-      title: 'Diagnóstico Atual',
-      rows: [
-        ['Conversão atual',   v('conv_atual') ? v('conv_atual')+'%' : ''],
-        ['Meta de conversão', v('conv_meta')  ? v('conv_meta')+'%'  : ''],
-        ['Taxa de rejeição',  v('rejeicao')   ? v('rejeicao')+'%'   : ''],
-        ['CPA atual',         v('cpa')        ? 'R$ '+v('cpa')      : ''],
-        ['Fontes de tráfego', checked('fontes','fontes_outro')],
-        ['Problemas',         v('problemas')],
-      ]
-    },
-    {
-      title: 'Público-Alvo e Copy',
-      rows: [
-        ['Dores',             v('dores')],
-        ['Objeções',          v('objecoes')],
-        ['Headline',          v('headline')],
-        ['CTA',               v('cta_atual')],
-        ['Proposta de valor', v('proposta')],
-      ]
+function removeFrom(ofId,fuBlock){
+  var box=document.getElementById(ofId);if(!box)return;
+  var removing=false;
+  Array.from(box.children).forEach(function(child){
+    if(child===fuBlock)removing=true;
+    if(removing){
+      if(child.classList.contains('fu-block')){child.classList.remove('on');child.querySelectorAll('.radio-btn').forEach(function(b){b.classList.remove('sel');});}
+      if(child.classList.contains('chain-row'))child.remove();
     }
+  });
+}
+
+function makeFuBlock(ofId){
+  var div=document.createElement('div');div.className='fu-block on';
+  div.innerHTML='<div class="fu-label">Deseja incluir mais algum?</div><div class="radio-group"><div class="radio-btn" onclick="fuDynChoose(this.closest(\'.fu-block\'),\''+ofId+'\',\'sim\',this)">Sim</div><div class="radio-btn" onclick="fuDynChoose(this.closest(\'.fu-block\'),\''+ofId+'\',\'nao\',this)">Não</div></div>';
+  return div;
+}
+
+function makeChainRow(ofId){
+  var row=document.createElement('div');row.className='chain-row';
+  row.innerHTML='<div class="input-x-wrap"><input type="text" placeholder="Digite mais um..." oninput="onOutroType(this,\''+ofId+'\')"><button class="input-x-btn" type="button" onclick="removeChainRow(this,\''+ofId+'\')" title="Remover">✕</button></div>';
+  return row;
+}
+
+function removeChainRow(btn,ofId){
+  var row=btn.closest('.chain-row'),box=document.getElementById(ofId),toRemove=[];
+  var removing=false;
+  Array.from(box.children).forEach(function(child){if(child===row)removing=true;if(removing)toRemove.push(child);});
+  toRemove.forEach(function(child){if(child.classList.contains('chain-row'))child.remove();else if(child.classList.contains('fu-block')){child.classList.remove('on');child.querySelectorAll('.radio-btn').forEach(function(b){b.classList.remove('sel');});}});
+}
+
+function getOutroValues(ofId){
+  var box=document.getElementById(ofId);
+  if(!box||!box.classList.contains('visible'))return[];
+  var vals=[];
+  box.querySelectorAll('input[type="text"]').forEach(function(inp){if(inp.value.trim())vals.push(inp.value.trim());});
+  return vals;
+}
+
+/* ---- priority ---- */
+function pickPriority(labelEl,val){
+  document.querySelectorAll('#priority-group .priority-item').forEach(function(l){l.classList.remove('sel');});
+  labelEl.classList.add('sel');
+  document.getElementById('task_priority').value=val;
+}
+
+/* ---- helpers ---- */
+function v(id){var e=document.getElementById(id);return e&&e.value.trim()?e.value.trim():'';}
+
+function vChip(groupId,outroFieldId,outroInputId){
+  var hidden=document.querySelector('#'+groupId+' ~ input[type="hidden"]')||document.getElementById(groupId)&&document.getElementById(groupId).parentNode.querySelector('input[type="hidden"]');
+  var val=hidden?hidden.value:'';
+  if(val==='Outro')return getOutroValues(outroFieldId).join(', ')||'Outro';
+  return val;
+}
+function vObj2(hiddenId,outroFieldId){
+  var h=document.getElementById(hiddenId);var val=h?h.value:'';
+  if(val==='Outro')return getOutroValues(outroFieldId).join(', ')||'Outro';
+  return val;
+}
+
+function vVSL(){var h=document.getElementById('vsl');if(!h||h.value!=='Sim')return h?h.value:'';return 'Sim'+(v('vsl_url')?' – '+v('vsl_url'):'');}
+function vImagem(){var h=document.getElementById('imagem');if(!h||h.value!=='Sim')return h?h.value:'';return 'Sim'+(v('imagem_links')?' – '+v('imagem_links'):'');}
+function vOutroElem(){var h=document.getElementById('outro_elem');if(!h||h.value!=='Sim')return h?h.value:'';return 'Sim'+(v('outro_elem_val')?' – '+v('outro_elem_val'):'');}
+function vObjetivo(){return vObj2('objetivo','of-objetivo');}
+
+function checkedPlus(gid,ofId){
+  var vals=Array.from(document.querySelectorAll('#'+gid+' input[type="checkbox"]:checked')).map(function(e){return e.value;});
+  var idx=vals.indexOf('Outro');
+  if(idx>-1){vals.splice(idx,1);getOutroValues(ofId).forEach(function(ov){vals.push(ov);});}
+  return vals.join(', ')||'Nenhum selecionado';
+}
+
+function vDataInicial(){var el=document.getElementById('due_date');if(!el||!el.value)return'';var p=el.value.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function vPrioridade(){
+  var map={'1':'<span style="color:#ef4444">⚑</span> Urgente','2':'<span style="color:#f97316">⚑</span> Alta','3':'<span style="color:#eab308">⚑</span> Média','4':'<span style="color:#3b82f6">⚑</span> Normal'};
+  var val=document.getElementById('task_priority');return val&&val.value?map[val.value]||'':'';
+}
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+
+/* ---- review ---- */
+function buildReview(){
+  var sections=[
+    {title:'Visão Geral',rows:[
+      ['Empresa',v('empresa')],['URL',v('url')],['Produto/Serviço',v('produto')],
+      ['Objetivo',vObjetivo()],['Contexto',v('contexto')]]},
+    {title:'Diagnóstico Atual',rows:[
+      ['Fontes de tráfego',checkedPlus('fontes','of-fontes')],
+      ['Problemas',v('problemas')]]},
+    {title:'Público-Alvo e Copy',rows:[
+      ['Dores',v('dores')],['Objeções',v('objecoes')],
+      ['Vídeo (VSL)',vVSL()],['Imagem',vImagem()],
+      ['Headline',v('headline')],['Subheadline',v('subheadline')],
+      ['CTA',v('cta_atual')],['Proposta de valor',v('proposta')],
+      ['Outro elemento',vOutroElem()]]},
+    {title:'Observações Finais',rows:[
+      ['Data Inicial',vDataInicial()],['Prioridade',vPrioridade()],
+      ['Observações',v('obs')]]}
   ];
-
-  let html = '';
-  sections.forEach(sec => {
-    html += '<div class="review-section"><div class="review-section-title">' + sec.title + '</div>';
-    sec.rows.forEach(([label, val]) => {
-      const empty = !val || val === 'Nenhum selecionado';
-      html += '<div class="review-row"><span class="review-label">' + label + '</span>';
-      html += '<span class="review-value' + (empty ? ' empty' : '') + '">' + (empty ? 'Não preenchido' : escHtml(val)) + '</span></div>';
+  var html='';
+  sections.forEach(function(sec){
+    html+='<div class="review-section"><div class="review-section-title">'+sec.title+'</div>';
+    sec.rows.forEach(function(row){
+      var empty=!row[1]||row[1]==='Nenhum selecionado';
+      var display=empty?'Não preenchido':(/<[a-z]/.test(row[1])?row[1]:escHtml(row[1]));
+      html+='<div class="review-row"><span class="review-label">'+row[0]+'</span><span class="review-value'+(empty?' empty':'')+'">'+display+'</span></div>';
     });
-    html += '</div>';
+    html+='</div>';
   });
-  document.getElementById('review-content').innerHTML = html;
+  document.getElementById('review-content').innerHTML=html;
 }
 
-function buildBody() {
+/* ---- ClickUp ---- */
+var API_HEADERS={'Content-Type':'application/json','Authorization':'pk_82190021_FZZNRDO4APOZJXCDQ4MODUHF8S62PPP1'};
+var LIST_ID='168911847';
+
+function clickupPost(url,body){return fetch(url,{method:'POST',headers:API_HEADERS,body:JSON.stringify(body)}).then(function(r){return r.json();});}
+
+function buildSubtasks(){
   return [
-    'BRIEFING DE OTIMIZAÇÃO DE LANDING PAGE',
-    '========================================',
-    '',
-    '1. VISÃO GERAL',
-    '- Empresa: '         + (v('empresa')||'—'),
-    '- URL: '             + (v('url')||'—'),
-    '- Produto/Serviço: ' + (v('produto')||'—'),
-    '- Objetivo: '        + (vObj('objetivo','objetivo_outro')||'—'),
-    '- Contexto: '        + (v('contexto')||'—'),
-    '',
-    '2. DIAGNÓSTICO ATUAL',
-    '- Conversão atual: ' + (v('conv_atual') ? v('conv_atual')+'%' : '—'),
-    '- Meta de conversão: '+(v('conv_meta')  ? v('conv_meta')+'%'  : '—'),
-    '- Taxa de rejeição: ' +(v('rejeicao')   ? v('rejeicao')+'%'   : '—'),
-    '- CPA atual: '       + (v('cpa')        ? 'R$ '+v('cpa')      : '—'),
-    '- Fontes de tráfego: '+checked('fontes','fontes_outro'),
-    '- Problemas: '       + (v('problemas')||'—'),
-    '',
-    '3. PÚBLICO-ALVO E COPY',
-    '- Dores: '           + (v('dores')||'—'),
-    '- Objeções: '        + (v('objecoes')||'—'),
-    '- Headline: '        + (v('headline')||'—'),
-    '- CTA: '             + (v('cta_atual')||'—'),
-    '- Proposta de valor: '+(v('proposta')||'—'),
-    '',
-    '4. OBSERVAÇÕES',
-    (v('obs')||'—'),
-  ].join('\n');
+    {name:'1. Visão Geral',description:[
+      '👤 Responsável: André',
+      '🏢 Empresa: '+(v('empresa')||'—'),
+      '🔗 URL: '+(v('url')||'—'),
+      '📦 Produto/Serviço: '+(v('produto')||'—'),
+      '🎯 Objetivo: '+(vObjetivo()||'—'),
+      '💬 Contexto: '+(v('contexto')||'—'),
+    ].join('\n')},
+    {name:'2. Diagnóstico Atual',description:[
+      '📣 Fontes de tráfego: '+checkedPlus('fontes','of-fontes'),
+      '⚠️ Problemas: '+(v('problemas')||'—'),
+    ].join('\n')},
+    {name:'3. Público-Alvo e Copy',description:[
+      '😣 Dores: '+(v('dores')||'—'),
+      '🚧 Objeções: '+(v('objecoes')||'—'),
+      '🎥 Vídeo (VSL): '+(vVSL()||'—'),
+      '🖼 Imagem: '+(vImagem()||'—'),
+      '✍️ Headline: '+(v('headline')||'—'),
+      '📝 Subheadline: '+(v('subheadline')||'—'),
+      '🔘 CTA: '+(v('cta_atual')||'—'),
+      '💡 Proposta de valor: '+(v('proposta')||'—'),
+      '➕ Outro elemento: '+(vOutroElem()||'—'),
+    ].join('\n')},
+    {name:'4. Observações Finais',description:[
+      '📅 Data Inicial: '+(vDataInicial()||'—'),
+      '🚩 Prioridade: '+(document.getElementById('task_priority').value?['','🔴 Urgente','🟠 Alta','🟡 Média','🔵 Normal'][parseInt(document.getElementById('task_priority').value)]:'—'),
+      '📝 Observações: '+(v('obs')||'—'),
+    ].join('\n')},
+  ];
 }
 
-function showSuccess() {
-  document.getElementById('step-4').classList.remove('visible');
-  document.getElementById('success-screen').style.display = 'block';
-  document.querySelector('.progress-bar-wrap').style.display = 'none';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+function showSuccess(){
+  document.getElementById('step-5').classList.remove('visible');
+  document.getElementById('success-screen').style.display='block';
+  document.querySelector('.progress-bar-wrap').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function buildDescription() {
-  return [
-    '📋 BRIEFING DE OTIMIZAÇÃO DE LANDING PAGE',
-    '',
-    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    '1. VISÃO GERAL',
-    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    '👤 Responsável: André',
-    '🏢 Empresa: '         + (v('empresa')||'—'),
-    '🔗 URL: '             + (v('url')||'—'),
-    '📦 Produto/Serviço: ' + (v('produto')||'—'),
-    '🎯 Objetivo: '        + (vObj('objetivo','objetivo_outro')||'—'),
-    '💬 Contexto: '        + (v('contexto')||'—'),
-    '',
-    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    '2. DIAGNÓSTICO ATUAL',
-    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    '📈 Conversão atual: ' + (v('conv_atual') ? v('conv_atual')+'%' : '—'),
-    '🎯 Meta de conversão: '+(v('conv_meta')  ? v('conv_meta')+'%'  : '—'),
-    '📉 Taxa de rejeição: ' +(v('rejeicao')   ? v('rejeicao')+'%'   : '—'),
-    '💰 CPA atual: '       + (v('cpa')        ? 'R$ '+v('cpa')      : '—'),
-    '📣 Fontes de tráfego: '+checked('fontes','fontes_outro'),
-    '⚠️ Problemas: '       + (v('problemas')||'—'),
-    '',
-    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    '3. PÚBLICO-ALVO E COPY',
-    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    '😣 Dores: '           + (v('dores')||'—'),
-    '🚧 Objeções: '        + (v('objecoes')||'—'),
-    '✍️ Headline: '        + (v('headline')||'—'),
-    '🔘 CTA: '             + (v('cta_atual')||'—'),
-    '💡 Proposta de valor: '+(v('proposta')||'—'),
-    '',
-    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    '4. OBSERVAÇÕES',
-    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    (v('obs')||'—'),
-  ].join('\n');
-}
+function sendBriefing(){
+  var btn=document.getElementById('send-btn');
+  btn.disabled=true;btn.textContent='Criando tarefa...';
+  var taskName=(v('empresa')||'Sem nome')+' | Otimização de Landing Page';
+  var mainPayload={name:taskName,description:'Briefing de Otimização – '+taskName,assignees:[82190021]};
+  var dueDateEl=document.getElementById('due_date');
+  if(dueDateEl&&dueDateEl.value){mainPayload.start_date=new Date(dueDateEl.value).getTime();mainPayload.start_date_time=false;}
+  var priorityMapFinal={'4':1,'3':2,'2':3,'1':4};
+  var priorityVal=document.getElementById('task_priority').value;
+  if(priorityVal)mainPayload.priority=priorityMapFinal[priorityVal];
 
-function sendBriefing() {
-  const btn = document.getElementById('send-btn');
-  btn.disabled = true;
-  btn.textContent = 'Criando tarefa...';
-
-  const taskName = (v('empresa') || 'Sem nome') + ' | Otimização de Landing Page';
-
-  fetch('https://api.clickup.com/api/v2/list/168911847/task', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'pk_82190021_FZZNRDO4APOZJXCDQ4MODUHF8S62PPP1'
-    },
-    body: JSON.stringify({
-      name: taskName,
-      description: buildDescription(),
-      assignees: [82190021]
-    })
+  clickupPost('https://api.clickup.com/api/v2/list/'+LIST_ID+'/task',mainPayload)
+  .then(function(mainTask){
+    if(!mainTask.id)throw new Error(JSON.stringify(mainTask));
+    var parentId=mainTask.id;
+    var subtasks=buildSubtasks();
+    return subtasks.reduce(function(chain,sub){
+      return chain.then(function(){
+        var sp={name:sub.name,description:sub.description,assignees:[82190021],parent:parentId};
+        if(mainPayload.start_date){sp.start_date=mainPayload.start_date;sp.start_date_time=false;}
+        if(mainPayload.priority)sp.priority=mainPayload.priority;
+        return clickupPost('https://api.clickup.com/api/v2/list/'+LIST_ID+'/task',sp);
+      });
+    },Promise.resolve());
   })
-  .then(function(res) { return res.json(); })
-  .then(function(data) {
-    if (data.id) {
-      showSuccess();
-    } else {
-      throw new Error(JSON.stringify(data));
-    }
-  })
-  .catch(function(err) {
-    alert('Erro ao criar tarefa no ClickUp. Verifique sua conexão e tente novamente.\n\nDetalhe: ' + err);
-    btn.disabled = false;
-    btn.innerHTML = '📨 Enviar Briefing';
+  .then(function(){showSuccess();})
+  .catch(function(err){
+    alert('Erro ao criar tarefa no ClickUp.\n\nDetalhe: '+err);
+    btn.disabled=false;btn.innerHTML='📨 Enviar Briefing';
   });
 }
 
-function resetForm() {
-  document.querySelectorAll('input[type="text"],input[type="url"],textarea,select').forEach(function(el){ el.value=''; });
-  document.querySelectorAll('input[type="checkbox"]').forEach(function(el){ el.checked=false; });
-  document.querySelectorAll('.checkbox-item').forEach(function(i){ i.classList.remove('checked'); });
-  document.querySelectorAll('.outro-field').forEach(function(f){ f.classList.remove('visible'); });
-  document.getElementById('success-screen').style.display = 'none';
-  document.querySelector('.progress-bar-wrap').style.display = 'block';
-  cur = 1;
-  document.querySelectorAll('.step-card').forEach(function(c){ c.classList.remove('visible'); });
+function resetForm(){
+  document.querySelectorAll('input[type="text"],input[type="url"],input[type="email"],input[type="date"],textarea,select').forEach(function(el){el.value='';});
+  document.querySelectorAll('input[type="hidden"]').forEach(function(el){el.value='';});
+  document.querySelectorAll('input[type="checkbox"]').forEach(function(el){el.checked=false;});
+  document.querySelectorAll('.checkbox-item').forEach(function(i){i.classList.remove('checked');});
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('sel','sel-outro');});
+  document.querySelectorAll('.outro-field').forEach(function(f){f.classList.remove('visible');});
+  document.querySelectorAll('.fu-block').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.radio-btn').forEach(function(b){b.classList.remove('sel');});
+  document.querySelectorAll('.chain-row').forEach(function(r){r.remove();});
+  document.querySelectorAll('.priority-item').forEach(function(l){l.classList.remove('sel');});
+  document.querySelectorAll('input[type="radio"]').forEach(function(r){r.checked=false;});
+  Object.keys(chains).forEach(function(k){delete chains[k];});
+  document.getElementById('success-screen').style.display='none';
+  document.querySelector('.progress-bar-wrap').style.display='block';
+  cur=1;document.querySelectorAll('.step-card').forEach(function(c){c.classList.remove('visible');});
   document.getElementById('step-1').classList.add('visible');
-  dots();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  dots();window.scrollTo({top:0,behavior:'smooth'});
 }
 
-document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(function(chk) {
-  chk.addEventListener('change', function(){ chk.closest('.checkbox-item').classList.toggle('checked', chk.checked); });
+document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(function(chk){
+  chk.addEventListener('change',function(){chk.closest('.checkbox-item').classList.toggle('checked',chk.checked);});
 });
-document.getElementById('empresa').addEventListener('input', function(){ document.getElementById('f-empresa').classList.remove('has-error'); });
+document.getElementById('empresa').addEventListener('input',function(){document.getElementById('f-empresa').classList.remove('has-error');});
 </script>
 </body>
 </html>
