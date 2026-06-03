@@ -650,10 +650,17 @@ function sendBriefing(){
   var taskName=(v('empresa')||'Sem nome')+' | Otimização de Landing Page';
   var mainPayload={name:taskName,description:'Briefing de Otimização – '+taskName,assignees:[82190021]};
   var dueDateEl=document.getElementById('due_date');
-  if(dueDateEl&&dueDateEl.value){mainPayload.start_date=new Date(dueDateEl.value).getTime();mainPayload.start_date_time=false;}
-  var priorityMapFinal={'4':1,'3':2,'2':3,'1':4};
+  if(dueDateEl&&dueDateEl.value){
+    // parse date parts to avoid timezone offset shifting the day
+    var parts=dueDateEl.value.split('-');
+    var d=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]),12,0,0);
+    mainPayload.start_date=d.getTime();
+    mainPayload.start_date_time=false;
+  }
+  // ClickUp priority: 1=urgent, 2=high, 3=normal, 4=low
+  // Our UI values: '1'=Urgente→1, '2'=Alta→2, '3'=Média→3, '4'=Normal→4
   var priorityVal=document.getElementById('task_priority').value;
-  if(priorityVal)mainPayload.priority=priorityMapFinal[priorityVal];
+  if(priorityVal)mainPayload.priority=parseInt(priorityVal);
 
   clickupPost('https://api.clickup.com/api/v2/list/'+LIST_ID+'/task',mainPayload)
   .then(function(mainTask){
