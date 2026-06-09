@@ -604,32 +604,31 @@ var LIST_ID='168911847';
 
 function clickupPost(url,body){return fetch(url,{method:'POST',headers:API_HEADERS,body:JSON.stringify(body)}).then(function(r){return r.json();});}
 
-function buildSubtasks(){
+function buildDescription(){
   return [
-    {name:'1. Visão Geral',description:[
-      '🏢 Empresa: '+(v('empresa')||'—'),
-      '🔗 URL: '+(v('url')||'—'),
-      '📦 Produto/Serviço: '+(v('produto')||'—'),
-      '🎯 Objetivo: '+(vObjetivo()||'—'),
-      '💬 Contexto: '+(v('contexto')||'—'),
-    ].join('\n')},
-    {name:'2. Diagnóstico Atual',description:[
-      '📣 Fontes de tráfego: '+checkedPlus('fontes','of-fontes'),
-      '⚠️ Problemas: '+(v('problemas')||'—'),
-    ].join('\n')},
-    {name:'3. Público-Alvo e Copy',description:[
-      '😣 Dores: '+(v('dores')||'—'),
-      '🚧 Objeções: '+(v('objecoes')||'—'),
-      '🎥 Vídeo (VSL): '+(vVSL()||'—'),
-      '🖼 Imagem: '+(vImagem()||'—'),
-      '✍️ Headline: '+(v('headline')||'—'),
-      '📝 Subheadline: '+(v('subheadline')||'—'),
-      '🔘 CTA: '+(v('cta_atual')||'—'),
-      '💡 Proposta de valor: '+(v('proposta')||'—'),
-      '➕ Outro elemento: '+(vOutroElem()||'—'),
-    ].join('\n')},
-    {name:'4. Observações Finais',description:(v('obs')||'—')},
-  ];
+    '📋 BRIEFING – OTIMIZAÇÃO DE LANDING PAGE','',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━','1. VISÃO GERAL','━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '🏢 Empresa: '+(v('empresa')||'—'),
+    '🔗 URL: '+(v('url')||'—'),
+    '📦 Produto/Serviço: '+(v('produto')||'—'),
+    '🎯 Objetivo: '+(vObjetivo()||'—'),
+    '💬 Contexto: '+(v('contexto')||'—'),'',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━','2. DIAGNÓSTICO ATUAL','━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '📣 Fontes de tráfego: '+checkedPlus('fontes','of-fontes'),
+    '⚠️ Problemas: '+(v('problemas')||'—'),'',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━','3. PÚBLICO-ALVO E COPY','━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '😣 Dores: '+(v('dores')||'—'),
+    '🚧 Objeções: '+(v('objecoes')||'—'),
+    '🎥 Vídeo (VSL): '+(vVSL()||'—'),
+    '🖼 Imagem: '+(vImagem()||'—'),
+    '✍️ Headline: '+(v('headline')||'—'),
+    '📝 Subheadline: '+(v('subheadline')||'—'),
+    '🔘 CTA: '+(v('cta_atual')||'—'),
+    '💡 Proposta de valor: '+(v('proposta')||'—'),
+    '➕ Outro elemento: '+(vOutroElem()||'—'),'',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━','4. OBSERVAÇÕES FINAIS','━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    (v('obs')||'—'),
+  ].join('\n');
 }
 
 function showSuccess(){
@@ -643,7 +642,7 @@ function sendBriefing(){
   var btn=document.getElementById('send-btn');
   btn.disabled=true;btn.textContent='Criando tarefa...';
   var taskName=(v('empresa')||'Sem nome')+' | Otimização de Landing Page';
-  var mainPayload={name:taskName,description:'Briefing de Otimização – '+taskName,assignees:[82190021]};
+  var mainPayload={name:taskName,description:buildDescription(),assignees:[82190021]};
   var dueDateEl=document.getElementById('due_date');
   if(dueDateEl&&dueDateEl.value){
     // parse date parts to avoid timezone offset shifting the day
@@ -657,21 +656,12 @@ function sendBriefing(){
   var priorityVal=document.getElementById('task_priority').value;
   if(priorityVal)mainPayload.priority=parseInt(priorityVal);
 
+  // Create single task with full briefing in description
   clickupPost('https://api.clickup.com/api/v2/list/'+LIST_ID+'/task',mainPayload)
   .then(function(mainTask){
     if(!mainTask.id)throw new Error(JSON.stringify(mainTask));
-    var parentId=mainTask.id;
-    var subtasks=buildSubtasks();
-    return subtasks.reduce(function(chain,sub){
-      return chain.then(function(){
-        var sp={name:sub.name,description:sub.description,assignees:[82190021],parent:parentId};
-        if(mainPayload.start_date){sp.start_date=mainPayload.start_date;sp.start_date_time=false;}
-        if(mainPayload.priority)sp.priority=mainPayload.priority;
-        return clickupPost('https://api.clickup.com/api/v2/list/'+LIST_ID+'/task',sp);
-      });
-    },Promise.resolve());
+    showSuccess();
   })
-  .then(function(){showSuccess();})
   .catch(function(err){
     alert('Erro ao criar tarefa no ClickUp.\n\nDetalhe: '+err);
     btn.disabled=false;btn.innerHTML='📨 Enviar Briefing';
